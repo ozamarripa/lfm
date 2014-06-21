@@ -1,0 +1,42 @@
+#
+# For the Intel OpenCL SDK running with the Intel compiler under windows 7
+OBJ=obj
+EXE=.exe
+RM=del
+PRE=
+
+DEVICE   = /DDEVICE=CL_DEVICE_TYPE_CPU
+OCLHOME  ="C:\Program Files (x86)\Intel\OpenCL SDK\2.0"
+CC       = icl
+CPPC	 = icl
+CLINKER  = $(CC)
+OPTFLAGS = /Qopenmp /Qstd=c99 /EHsc
+INC      =/I$(OCLHOME)\include
+CFLAGS   = $(OPTFLAGS) $(INC) $(DEVICE)
+LIBS     =$(OCLHOME)\lib\x64\OpenCL.lib
+
+
+
+
+#
+# Make.def file for AMD's OpenCL SDK running on Unix
+CC      = gcc
+CPPC	= g++
+DEVICE  = -DDEVICE=CL_DEVICE_TYPE_GPU
+
+ifdef AMDAPPSDKROOT
+	OPENCLINC = -I $(AMDAPPSDKROOT)/include -L $(AMDAPPSDKROOT)/lib/x86_64
+else
+	OPENCLINC = -I /opt/AMDAPP/include -L /opt/AMDAPP/lib/x86_64/
+endif
+
+STDS = -std=c++11 -std=gnu++11
+
+OPENCLFLAGS = -lOpenCL
+CFLAGS  = -m64 -O3 $(DEVICE)
+CPPFLAGS = $(CFLAGS) $(STDS)
+LIBS = -lrt -lm
+OBJ=o
+EXE=
+RM=rm -f
+PRE=./

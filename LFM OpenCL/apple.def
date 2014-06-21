@@ -1,0 +1,14 @@
+#
+# Make.def file for Apple's OpenCL SDK running on Lion
+CC      = gcc
+CPPC	= g++
+DEVICE  = -DDEVICE=CL_DEVICE_TYPE_CPU
+
+OPENCLFLAGS = -framework OpenCL
+CFLAGS  = -m64 -O3 -fopenmp -DAPPLE -Icommon $(DEVICE)
+CPPFLATS = $(CFLAGS)
+LIBS = -lrt -lm
+OBJ=o
+EXE=
+RM=rm -f
+PRE=./
